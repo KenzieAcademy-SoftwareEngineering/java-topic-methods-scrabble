@@ -1,5 +1,41 @@
+import java.util.Scanner;
+
 public class Scrabble {
 
+
+    public static void main(String[] args) {
+        String word;
+        int totalValue = 0;
+
+        //read in input
+        System.out.println("Type in your word and hit enter. Use `?` for Blank spaces");
+        Scanner scan = new Scanner(System.in);
+        word = scan.nextLine();
+
+        //check if word is valid
+        if(word.matches("[a-zA-Z?]+")){
+            System.out.println("Word is valid");
+        }
+        else {
+            System.out.println("Word is invalid");
+            return;
+        }
+
+        //allcaps word and turn into all uppercase
+        String capsWord = word.strip().toUpperCase();
+        String cleanWord = capsWord.replaceAll("[^a-zA-Z ]", "");
+
+        //Add all letter values together
+        for (int i = 0; i < cleanWord.length(); i++) {
+            String currentTile = cleanWord.substring(i,i+1);
+            totalValue = totalValue + LetterTile.valueOf(currentTile).getPoints();
+        }
+
+
+        //display the final point value
+        System.out.print("Total points:");
+        System.out.println(totalValue);
+    }
 
 
 }
